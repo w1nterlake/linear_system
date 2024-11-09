@@ -6,6 +6,7 @@ void print_matrix(double *A, int n){
         for(int j = 0; j < n; j++){
             printf("%10.3e ", A[i * n + j]);
         }
+        printf("\n");
     }
 }
 
@@ -44,7 +45,7 @@ void f2(double *A, int n){
 void f3(double *A, int n){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            A[i * n + j] = abc(i - j);
+            A[i * n + j] = abs(i - j);
         }
     }
 }
@@ -118,14 +119,14 @@ double discrepancy_2(double *X, int n){
     return sum1/sum2;
 }
 
-void print_matrix(double *A, int n){
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            printf("%10.3e ", A[i * n + j]);
-        }
-        printf("\n");
-    }
-}
+// void print_matrix(double *A, int n){
+//     for(int i = 0; i < n; i++){
+//         for(int j = 0; j < n; j++){
+//             printf("%10.3e ", A[i * n + j]);
+//         }
+//         printf("\n");
+//     }
+// }
 
 void multiply(double *A, double *C, int n){
     double *X = (double*)malloc(n * sizeof(double));
@@ -153,8 +154,42 @@ int scalar(double *X, double *Y, int n){
     return sum;
 }
 
-void solve_1(double *X, int n){
-    double s = sqrt(scalar(X, X, n));
-    double
-    double d = sqrt(scalar(()))
+void solve_1(double *A, double *B, int n){
+    double t1, t2;
+    for(int i = 0; i < n; i++){
+        t1 = 0;
+        for(int j = i; j < n; j++){
+            t1 += A[j * n + i];
+        }
+        t2 = t1;
+        t1 =  sqrt(t1);
+        A[i * n + i] -= t1;
+        t2 = sqrt(t1 + A[i * n + i] * A[i * n + i]);
+        for(int j = i; j < n; j++){
+            A[j * n + i] /= t2;
+        }
+        for(int j = i + 1; j < n; j++){
+            t1 = 0;
+            for(int l = i; l < n; l++){
+                t1 += A[l * n + i] * A[l * n + j];
+            }
+            t1 *= 2;
+            for(int l = i; l < n; l++){
+                A[l * n + j] -= t1 * A[l * n + i];
+            }
+        }
+        t1 = 0;
+        for(int l = i; l < n; l++){
+            t1 += A[l * n + i] * B[l];
+        }
+        t1 *= 2;
+        for(int l = i; l < n; l++){
+            B[l] -= t1 * A[l * n + i];
+        }
+        for(int k = i + 1; k < n; k++){
+            A[k * n + i] = 0;
+        }
+        A[i * n + i] = t2;
+    }
 }
+

@@ -21,7 +21,7 @@ void f3(double *A, int n);//
 
 void f4(double *A, int n);//
 
-void fill(double *A, int n, char *filename);//
+void fill(double *A, int n, char *filename, int s, int *err);//
 
 void fill_right_part(double *A, double *B, int n);//
 
@@ -35,7 +35,9 @@ void print_matrix(double *A, int n);//
 
 void multiply(double *A, double *C, int n);//
 
-void solve_1(double *A, int n, double *B);
+int scalar(double *X, double *Y, int n);//
+
+void solve_1(double *A, double *B, int n);
 
 void reflection(double *A, int n);
 
