@@ -2,31 +2,43 @@
 
 
 int main(){
-    printf("enter\n");
     int n;
-    double *A, *B;
+    double *A, *B, *X;
     scanf("%d", &n);
-    A = (double*) malloc(n * n * sizeof(double));
+    A = (double*)malloc(n * n * sizeof(double));
     B = (double*)malloc(n * sizeof(double));
+    X = (double*)malloc(n * sizeof(double));
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
             scanf("%lf", A + i * n + j);
         }
     }
+    
 
     for(int i = 0; i < n; i++){
         scanf("%lf", B + i);
     }
 
+    solve(A, B, X, n);
 
-    solve_1(A, B, n);
+    // for(int i = 0; i < n; i++){
+    //     for(int j = 0; j < n; j++){
+    //         A[i * n + j] /= sqrt(5);
+    //     }
+    //     B[i] /= sqrt(5);
+    // }
 
-    printf("\n");
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            printf("%10.3e ", A[i * n + j]);
+        }
+        printf("%10.3e", B[i]);
+        printf("\n");
+    }
+    printf("hello");
 
-
-    print_matrix(A, n);
-    
     free(A);
     free(B);
+    free(X);
     return 0;
 }
